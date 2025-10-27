@@ -6,48 +6,8 @@ import { FLASHCARDS } from '../../data/flashcards';
   selector: 'app-flashcards',
   standalone: true,
   imports: [NgIf, NgFor],
-  template: `
-    <section class="container" *ngIf="current(); else empty">
-      <div class="cluster">
-        <label for="topic">Topic</label>
-  <select id="topic" (change)="setTopic($any($event.target).value)">
-          <option value="all">All</option>
-          <option *ngFor="let t of topics()" [value]="t">{{ t }}</option>
-        </select>
-        <button class="btn ghost" (click)="shuffle()">Shuffle</button>
-      </div>
-      <article class="card flip" (click)="flip()" [class.is-flipped]="flipped()">
-        <div class="flip-inner">
-          <div class="flip-face front">
-            <h2>{{ current().front }}</h2>
-            <p class="tag" *ngIf="current().topic">{{ current().topic }}</p>
-          </div>
-          <div class="flip-face back">
-            <h2>Answer</h2>
-            <p>{{ current().back }}</p>
-          </div>
-        </div>
-      </article>
-      <div class="cluster">
-        <button class="btn secondary" (click)="prev()" [disabled]="index()===0">Prev</button>
-        <span class="tag">{{ index()+1 }} / {{ total() }}</span>
-        <button class="btn primary" (click)="next()" [disabled]="index()===total()-1">Next</button>
-      </div>
-    </section>
-    <ng-template #empty>
-      <section class="container"><p>No flashcards available.</p></section>
-    </ng-template>
-  `,
-  styles: [
-    `
-    .container{max-width:800px;margin:2rem auto;padding:1rem}
-    .flip{ perspective: 1000px; cursor: pointer; }
-    .flip-inner{ position: relative; transform-style: preserve-3d; transition: transform .6s; }
-    .flip.is-flipped .flip-inner{ transform: rotateY(180deg); }
-    .flip-face{ min-height: 180px; display:flex; flex-direction: column; justify-content:center; align-items:center; backface-visibility: hidden; }
-    .flip-face.back{ transform: rotateY(180deg); }
-    `
-  ]
+  templateUrl: './flashcards.component.html',
+  styleUrls: ['./flashcards.component.css']
 })
 export class FlashcardsComponent{
   private all = FLASHCARDS;

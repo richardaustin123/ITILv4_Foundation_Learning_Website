@@ -1,0 +1,30 @@
+<section class="container" *ngIf="current(); else empty">
+  <div class="cluster">
+    <label for="topic">Topic</label>
+    <select id="topic" (change)="setTopic($any($event.target).value)">
+      <option value="all">All</option>
+      <option *ngFor="let t of topics()" [value]="t">{{ t }}</option>
+    </select>
+    <button class="btn ghost" (click)="shuffle()">Shuffle</button>
+  </div>
+  <article class="flash-card-container card flip" (click)="flip()" [class.is-flipped]="flipped()">
+    <div class="flip-inner">
+      <div class="flip-face front">
+        <h2>{{ current().front }}</h2>
+        <p class="tag" *ngIf="current().topic">{{ current().topic }}</p>
+      </div>
+      <div class="flip-face back">
+        <h2>Answer</h2>
+        <p>{{ current().back }}</p>
+      </div>
+    </div>
+  </article>
+  <div class="cluster">
+    <button class="btn secondary" (click)="prev()" [disabled]="index()===0">Prev</button>
+    <span class="tag">{{ index()+1 }} / {{ total() }}</span>
+    <button class="btn primary" (click)="next()" [disabled]="index()===total()-1">Next</button>
+  </div>
+</section>
+<ng-template #empty>
+  <section class="container"><p>No flashcards available.</p></section>
+</ng-template>

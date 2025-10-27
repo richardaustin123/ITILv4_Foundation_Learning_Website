@@ -1,0 +1,69 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.flip {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flip-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  width: 100%;
+}
+
+.flip.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flash-card-container {
+  margin: 1em 0;
+  min-height: 220px; /* gives both sides a consistent height */
+  /* border: 1px solid #ccc; */
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  /* background: #fff; */
+}
+
+.flip-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+/* FRONT SIDE */
+.flip-face.front h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* BACK SIDE */
+.flip-face.back {
+  transform: rotateY(180deg);
+  justify-content: flex-start; /* align to top like the front */
+  align-items: center;
+}
+
+.flip-face.back h2 {
+  margin-bottom: 0.5rem;
+}
+
+.flip-face.back p {
+  margin-top: 0.5rem;
+}
+.tag {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
