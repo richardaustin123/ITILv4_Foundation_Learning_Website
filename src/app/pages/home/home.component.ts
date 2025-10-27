@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [RouterLink],
+  template: `
+    <section class="hero container">
+      <h2>Master ITIL v4 Foundation</h2>
+      <p>Practice with curated quizzes and flip-through flashcards covering the full syllabus: SVS, guiding principles, practices, dimensions, and more.</p>
+      <div class="actions">
+        <a routerLink="/quiz" class="btn primary">Start a Quiz</a>
+        <a routerLink="/flashcards" class="btn secondary">Review Flashcards</a>
+      </div>
+    </section>
+
+    <section class="container grid">
+      <article class="card">
+        <h3>Guided Quizzes</h3>
+        <p>Multiple-choice questions with instant feedback and explanations.</p>
+      </article>
+      <article class="card">
+        <h3>Flashcards</h3>
+        <p>Key terms and definitions to reinforce memory.</p>
+      </article>
+      <article class="card">
+        <h3>Topic Filters</h3>
+        <p>Focus on specific areas like SVS, Dimensions, Practices, and more.</p>
+      </article>
+    </section>
+  `,
+  styles: []
+})
+export class HomeComponent {}
