@@ -7,7 +7,7 @@
     </select>
     <button class="btn ghost" (click)="shuffle()">Shuffle</button>
   </div>
-  <article class="flash-card-container card flip" (click)="flip()" [class.is-flipped]="flipped()">
+  <article class="flash-card-container flip" (click)="flip()" [class.is-flipped]="flipped()">
     <div class="flip-inner">
       <div class="flip-face front">
         <h2>{{ current().front }}</h2>
@@ -23,6 +23,10 @@
     <button class="btn secondary" (click)="prev()" [disabled]="index()===0">Prev</button>
     <span class="tag">{{ index()+1 }} / {{ total() }}</span>
     <button class="btn primary" (click)="next()" [disabled]="index()===total()-1">Next</button>
+  </div>
+  <div class="dots" *ngIf="total() <= 12">
+    <span *ngFor="let _ of [].constructor(total()); let i = index"
+      [class.active]="i === index()"></span>
   </div>
 </section>
 <ng-template #empty>

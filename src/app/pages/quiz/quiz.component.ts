@@ -1,6 +1,8 @@
 import { Component, computed, signal } from '@angular/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { QUESTIONS, type Question } from '../../data/questions';
+import { ActivatedRoute } from '@angular/router';
+import { ProgressService } from '../../services/progress.service';
 
 @Component({
   selector: 'app-quiz',
@@ -21,7 +23,14 @@ export class QuizComponent {
 
   protected current = computed<Question | undefined>(() => this.pool()[this.index()]);
   protected isCorrect = computed(() => this.selectedIndex() === this.current()?.answerIndex);
-  protected progress = computed(() => this.total() ? ((this.index()) / this.total()) * 100 : 0);
+  protected progressPct = computed(() => this.total() ? ((this.index()) / this.total()) * 100 : 0);
+
+  constructor(private route: ActivatedRoute, private progressSvc: ProgressService) {
+    const topic = this.route.snapshot.queryParamMap.get('topic');
+    if (topic) {
+      this.setTopic(topic);
+    }
+  }
 
   select(i: number){
     if (this.answered()) return;
@@ -34,6 +43,11 @@ export class QuizComponent {
     this.selectedIndex.set(null);
     this.answered.set(false);
     this.index.update(i => i + 1);
+    if (this.index() >= this.total()) {
+      // just in case of off-by-one, guard in done block as well
+  this.progressSvc.recordQuiz(this.score(), this.total());
+  this.progressSvc.unlockNextUnit();
+    }
   }
 
   restart(){
@@ -63,5 +77,11 @@ export class QuizComponent {
     this.index.set(0);
     this.selectedIndex.set(null);
     this.answered.set(false);
+  }
+
+  // Heuristic: if all options are <= 22 chars and <= 2 words, treat as short
+  isShortOptions(options: string[]): boolean {
+    if (!options || options.length !== 4) return false;
+    return options.every(opt => opt.length <= 22 && (opt.trim().split(/\s+/).length <= 3));
   }
 }

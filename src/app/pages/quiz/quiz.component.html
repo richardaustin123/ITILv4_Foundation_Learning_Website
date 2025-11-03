@@ -8,12 +8,12 @@
       </select>
       <button class="btn ghost" (click)="shuffle()">Shuffle</button>
     </div>
-    <div class="progress"><span [style.width.%]="progress()"></span></div>
+  <div class="progress"><span [style.width.%]="progressPct()"></span></div>
 
     <article class="card">
       <h2>Question {{ index()+1 }} / {{ total() }}</h2>
       <p class="prompt">{{ q.prompt }}</p>
-      <ul class="options" style="list-style:none;padding:0;display:grid;gap:.5rem">
+      <ul class="options" [class.grid2x2]="isShortOptions(q.options)" style="list-style:none;padding:0;display:grid;gap:.5rem">
         <li *ngFor="let opt of q.options; let i = index">
           <button
             class="btn secondary option"

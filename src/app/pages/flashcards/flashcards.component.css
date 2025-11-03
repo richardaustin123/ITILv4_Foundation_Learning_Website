@@ -1,7 +1,7 @@
 .container {
   max-width: 800px;
   margin: 2rem auto;
-  padding: 1rem;
+  padding: 0 var(--spacing);
 }
 
 .flip {
@@ -14,6 +14,7 @@
   transform-style: preserve-3d;
   transition: transform 0.6s;
   width: 100%;
+  min-height: 280px;
 }
 
 .flip.is-flipped .flip-inner {
@@ -22,48 +23,42 @@
 
 .flash-card-container {
   margin: 1em 0;
-  min-height: 220px; /* gives both sides a consistent height */
-  /* border: 1px solid #ccc; */
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  min-height: 280px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   overflow: hidden;
-  /* background: #fff; */
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0;
 }
 
 .flip-face {
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 1.5rem;
+  padding: 28px 24px 32px;
   backface-visibility: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   text-align: center;
+  background: transparent;
 }
 
 /* FRONT SIDE */
-.flip-face.front h2 {
-  margin-bottom: 0.5rem;
-}
+.flip-face.front h2 { margin-bottom: 0.5rem; }
 
 /* BACK SIDE */
 .flip-face.back {
   transform: rotateY(180deg);
-  justify-content: flex-start; /* align to top like the front */
-  align-items: center;
 }
 
-.flip-face.back h2 {
-  margin-bottom: 0.5rem;
-}
+.flip-face.back h2 { margin-bottom: 0.5rem; }
 
-.flip-face.back p {
-  margin-top: 0.5rem;
-}
-.tag {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  opacity: 0.7;
-}
+.flip-face.back p { margin-top: 0.5rem; }
+.tag { margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7; }
+
+.dots { display:flex; gap:6px; justify-content:center; margin-top: 8px; }
+.dots span { width:8px; height:8px; border-radius:50%; background:#E5E7EB; display:inline-block; }
+.dots span.active { background: var(--blue); }
