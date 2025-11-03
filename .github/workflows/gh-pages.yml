@@ -22,16 +22,21 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build Angular (prod) with base-href
         run: |
           npm run build -- --base-href "/ITILv4_Foundation_Learning_Website/"
-          cp -f dist/itil-v4-learning/browser/index.html dist/itil-v4-learning/browser/404.html
+          if [ -d dist/itil-v4-learning/browser ]; then
+            echo "PUBLISH_DIR=dist/itil-v4-learning/browser" >> $GITHUB_ENV
+          else
+            echo "PUBLISH_DIR=dist/itil-v4-learning" >> $GITHUB_ENV
+          fi
+          cp -f "$PUBLISH_DIR/index.html" "$PUBLISH_DIR/404.html"
 
-      - name: Deploy to gh-pages
+    - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist/itil-v4-learning/browser
+      publish_dir: ${{ env.PUBLISH_DIR }}
           force_orphan: true
