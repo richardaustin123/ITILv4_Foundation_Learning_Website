@@ -1,0 +1,36 @@
+<h1 class="sr-only">Hello, {{ title }}</h1>
+
+<header class="appbar">
+  <div class="inner">
+    <div class="cluster">
+      <strong>ITIL v4 Study</strong>
+    </div>
+    <nav class="cluster">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/quiz" routerLinkActive="active">Quiz</a>
+      <a routerLink="/flashcards" routerLinkActive="active">Flashcards</a>
+    </nav>
+  </div>
+  </header>
+
+<main class="container">
+  <div class="pagebar">
+    <h2 *ngIf="pageTitle()">{{ pageTitle() }}</h2>
+    <div class="actions">
+      <button class="btn icon" (click)="toggleTheme()" aria-label="Toggle theme">
+        <i *ngIf="theme() === 'light'" class="fa-solid fa-moon" aria-hidden="true"></i>
+         <!-- <i *ngIf="theme() === 'light'" class="fa-regular fa-lightbulb"></i> -->
+        <i *ngIf="theme() === 'dark'" class="fa-regular fa-lightbulb"></i>
+      </button>
+    </div>
+  </div>
+  <router-outlet />
+</main>
+
+<div class="bottom-nav">
+  <div class="bar">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/quiz" routerLinkActive="active">Quiz</a>
+    <a routerLink="/flashcards" routerLinkActive="active">Cards</a>
+  </div>
+</div>
